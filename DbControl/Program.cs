@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace DbControl
 {
@@ -10,16 +8,25 @@ namespace DbControl
     {
         public static void Main(string[] args)
         {
-            var matches = new MatchesContext().Matches.ToList();
+            var matches = new MatchesContext().Matches
+                .Include(m => m.GemaPlayers.Select(gp => gp.Player).Select(p => p.Team))
+                .ToList();
 
-            foreach (var match in matches)
+            foreach (var match in matches.Take(2))
             {
                 Console.WriteLine($"{match.TeamA.TeamName} - {match.TeamB.TeamName} {match.TeamAScore}:{match.TeamBScore} ({match.Id})");
                 Console.WriteLine();
+
+                foreach(var goal in match.GemaPlayers.SelectMany(gp => gp.Goals))
+                {
+                    Console.WriteLine($"'{goal.Minute} {goal.Player.Name} {goal.Player.Team.TeamName}");
+                }
+                Console.WriteLine();
                 Console.WriteLine($"{match.TeamA.TeamName} players in this match:");
                 Console.WriteLine();
+                var players = match.GemaPlayers.Select(gp => gp.Player).ToList();
 
-                foreach (var player in match.Players.Where(p => p.TeamId == match.TeamA.Id))
+                foreach (var player in players.Where(p => p.TeamId == match.TeamA.Id))
                 {
                     Console.WriteLine($"\t{player.Name}");
                 }
@@ -27,14 +34,13 @@ namespace DbControl
                 Console.WriteLine($"{match.TeamB.TeamName} players in this match:");
                 Console.WriteLine();
 
-                foreach (var player in match.Players.Where(p => p.TeamId == match.TeamB.Id))
+                foreach (var player in players.Where(p => p.TeamId == match.TeamB.Id))
                 {
                     Console.WriteLine($"\t{player.Name}");
                 }
 
                 Console.WriteLine();
             }
-
 
             Console.ReadLine();
         }

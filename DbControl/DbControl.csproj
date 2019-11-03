@@ -55,9 +55,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GemaPlayer.cs" />
     <Compile Include="Goal.cs" />
     <Compile Include="Match.cs" />
     <Compile Include="MatchesContext.cs" />
+    <Compile Include="Migrations\201911031449331_InitMigration.cs" />
+    <Compile Include="Migrations\201911031449331_InitMigration.designer.cs">
+      <DependentUpon>201911031449331_InitMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911031530474_AddGoalsTable.cs" />
+    <Compile Include="Migrations\201911031530474_AddGoalsTable.designer.cs">
+      <DependentUpon>201911031530474_AddGoalsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911031543401_AddRelationBeweenPlayerAndGoal.cs" />
+    <Compile Include="Migrations\201911031543401_AddRelationBeweenPlayerAndGoal.designer.cs">
+      <DependentUpon>201911031543401_AddRelationBeweenPlayerAndGoal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +89,22 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201911031449331_InitMigration.resx">
+      <DependentUpon>201911031449331_InitMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911031530474_AddGoalsTable.resx">
+      <DependentUpon>201911031530474_AddGoalsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911031543401_AddRelationBeweenPlayerAndGoal.resx">
+      <DependentUpon>201911031543401_AddRelationBeweenPlayerAndGoal.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQL\init.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

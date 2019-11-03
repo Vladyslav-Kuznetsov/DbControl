@@ -7,7 +7,8 @@ namespace DbControl
     {
         public Player()
         {
-            Matches = new List<Match>();
+            GemaPlayers = new List<GemaPlayer>();
+            Goals = new List<Goal>();
         }
 
         public int Id { get; set; }
@@ -18,7 +19,9 @@ namespace DbControl
         public string Name { get; set; }
 
         public virtual Team Team { get; set; }
-        
-        public virtual ICollection<Match> Matches { get; set; }
+
+        public virtual ICollection<GemaPlayer> GemaPlayers { get; set; }
+
+        public virtual ICollection<Goal> Goals { get; set; }
     }
 }
